@@ -65,7 +65,7 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 	shiftColliders();
 	
 	// If the ball collided or went too far to the left or right
-	if((mPosX - mCollider.r < 0) || (mPosX + mCollider.r > SCREEN_WIDTH) || checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
+	if((mPosX - mCollider.r < TOP_SCREEN_HEIGHT) || (mPosX + mCollider.r > SCREEN_WIDTH) || checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
 		// Move back
 		mPosX -= mVelX;
 		shiftColliders();
@@ -76,7 +76,7 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 	shiftColliders();
 	
 	// If the ball collided or went too far up or down
-	if((mPosY - mCollider.r < 0) || (mPosY + mCollider.r > SCREEN_HEIGHT) || checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
+	if((mPosY - mCollider.r < TOP_SCREEN_HEIGHT) || (mPosY + mCollider.r > SCREEN_HEIGHT) || checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
 		// Move back
 		mPosY -= mVelY;
 		shiftColliders();
