@@ -53,9 +53,12 @@ bool loadMedia() {
 	// Loading success flag
 	bool success = true;
 	
-	// Load dot texture
-	if(!gDotTexture.loadFromFile("dot.bmp")) {
-		printf("Failed to load dot texture!\n");
+	if(!gBallTexture.loadFromFile("Ball.png")) {
+		printf("Failed to load ball texture!\n");
+		success = false;
+	}
+	if(!gPaddleTexture.loadFromFile("Paddle.png")) {
+		printf("Failed to load paddle texture!\n");
 		success = false;
 	}
 	
@@ -64,7 +67,7 @@ bool loadMedia() {
 
 void close() {
 	// Free loaded images
-	gDotTexture.free();
+	gBallTexture.free();
 	
 	// Destroy window
 	SDL_DestroyRenderer(gRenderer);
@@ -75,21 +78,6 @@ void close() {
 	// Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
-}
-
-bool checkCollision(Circle& a, Circle& b) {
-	// Calculate total radius squared
-	int totalRadiusSquared = a.r + b.r;
-	totalRadiusSquared = totalRadiusSquared * totalRadiusSquared;
-	
-	// If the distance between the centers of the circles is less than the sum of their radii
-	if(distanceSquared(a.x, a.y, b.x, b.y) < (totalRadiusSquared)) {
-		// The circles have collided
-		return true;
-	}
-	
-	// If not
-	return false;
 }
 
 bool checkCollision(Circle& a, SDL_Rect& b) {

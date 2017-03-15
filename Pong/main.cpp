@@ -25,16 +25,10 @@ int main(int argc, char* args[]) {
 			// Event handler
 			SDL_Event e;
 			
-			// The dot that will be moving around on the screen
-			Dot dot(Dot::DOT_WIDTH / 2, Dot::DOT_HEIGHT / 2);
-			Dot otherDot(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+			// The ball that will be moving around on the screen
+			Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 			
-			// Set the wall
-			SDL_Rect wall;
-			wall.x = 300;
-			wall.y = 40;
-			wall.w = 40;
-			wall.h = 400;
+			Paddle rightPaddle(SCREEN_WIDTH - Paddle::PADDLE_WIDTH, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2));
 			
 			// While application is running
 			while(!quit) {
@@ -45,24 +39,19 @@ int main(int argc, char* args[]) {
 						quit = true;
 					}
 					
-					// Handle input for the dot
-					dot.handleEvent(e);
+					// Handle input for the ball
+					ball.handleEvent(e);
 				}
 				
-				// Move the dot and check collision
-				dot.move(wall, otherDot.getCollider());
+				// Move the ball and check collision
+				ball.move(rightPaddle.getCollider());
 				
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
-				
-				// Render wall
-				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
-				SDL_RenderDrawRect(gRenderer, &wall);
-				
-				// Render dots
-				dot.render();
-				otherDot.render();
+			
+				ball.render();
+				rightPaddle.render();
 				
 				// Update screen
 				SDL_RenderPresent(gRenderer);

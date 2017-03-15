@@ -12,9 +12,6 @@ bool loadMedia();
 // Frees media and shuts down SDL
 void close();
 
-// Circle/Circle collision detector
-bool checkCollision(Circle& a, Circle& b);
-
 // Circle/Box collision detector
 bool checkCollision(Circle& a, SDL_Rect& b);
 

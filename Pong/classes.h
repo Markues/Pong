@@ -52,41 +52,68 @@ private:
 	int mHeight;
 };
 
-class Dot {
+class Paddle {
 public:
-	// The dimensions of the dot
-	static const int DOT_WIDTH = 20;
-	static const int DOT_HEIGHT = 20;
+	static const int PADDLE_WIDTH = 6;
+	static const int PADDLE_HEIGHT = 48;
 	
-	// Maximum axis velocity of the dot
-	static const int DOT_VEL = 2;
+	static const int PADDLE_VEL = 3;
 	
-	// Initializes the variables
-	Dot(int x, int y);
+	Paddle(int x, int y);
 	
-	// Takes key presses and adjusts the dot's velocity
 	void handleEvent(SDL_Event& e);
 	
-	// Moves the dot and checks collision
-	void move(SDL_Rect& square, Circle& circle);
+	void move(Circle& circle);
 	
-	// Shows the dot on the screen
+	void render();
+	
+	SDL_Rect& getCollider();
+	
+private:
+	int mPosX, mPosY;
+	
+	int mVelX, mVelY;
+	
+	SDL_Rect mCollider;
+	
+	void shiftColliders();
+};
+
+class Ball {
+public:
+	// The dimensions of the ball
+	static const int BALL_WIDTH = 8;
+	static const int BALL_HEIGHT = 8;
+	
+	// Maximum axis velocity of the ball
+	static const int BALL_VEL = 2;
+	
+	// Initializes the variables
+	Ball(int x, int y);
+	
+	// Takes key presses and adjusts the ball's velocity
+	void handleEvent(SDL_Event& e);
+	
+	// Moves the ball and checks collision
+	void move(SDL_Rect& square);
+	
+	// Shows the ball on the screen
 	void render();
 	
 	// Gets collision circle
 	Circle& getCollider();
 	
 private:
-	// The X and Y offsets of the dot
+	// The X and Y offsets of the ball
 	int mPosX, mPosY;
 	
-	// The velocity of the dot
+	// The velocity of the ball
 	int mVelX, mVelY;
 	
-	// Dot's collision circle
+	// Ball's collision circle
 	Circle mCollider;
 	
-	// Moves the collision circle relative to the dot's offset
+	// Moves the collision circle relative to the ball's offset
 	void shiftColliders();
 };
 

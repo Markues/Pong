@@ -3,13 +3,13 @@
 #include "functions.h"
 #include "circle.h"
 
-Dot::Dot(int x, int y) {
+Ball::Ball(int x, int y) {
 	// Initialize the offsets
 	mPosX = x;
 	mPosY = y;
 	
 	// Set collision circle size
-	mCollider.r = DOT_WIDTH / 2;
+	mCollider.r = BALL_WIDTH / 2;
 	
 	// Initialize the velocity
 	mVelX = 0;
@@ -19,22 +19,22 @@ Dot::Dot(int x, int y) {
 	shiftColliders();
 }
 
-void Dot::handleEvent(SDL_Event& e) {
+void Ball::handleEvent(SDL_Event& e) {
 	// If a key was pressed
 	if(e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		// Adjust the velocity
 		switch(e.key.keysym.sym) {
 			case SDLK_UP:
-				mVelY -= DOT_VEL;
+				mVelY -= BALL_VEL;
 				break;
 			case SDLK_DOWN:
-				mVelY += DOT_VEL;
+				mVelY += BALL_VEL;
 				break;
 			case SDLK_LEFT:
-				mVelX -= DOT_VEL;
+				mVelX -= BALL_VEL;
 				break;
 			case SDLK_RIGHT:
-				mVelX += DOT_VEL;
+				mVelX += BALL_VEL;
 				break;
 		}
 	}
@@ -43,57 +43,57 @@ void Dot::handleEvent(SDL_Event& e) {
 		// Adjust the velocity
 		switch(e.key.keysym.sym) {
 			case SDLK_UP:
-				mVelY += DOT_VEL;
+				mVelY += BALL_VEL;
 				break;
 			case SDLK_DOWN:
-				mVelY -= DOT_VEL;
+				mVelY -= BALL_VEL;
 				break;
 			case SDLK_LEFT:
-				mVelX += DOT_VEL;
+				mVelX += BALL_VEL;
 				break;
 			case SDLK_RIGHT:
-				mVelX -= DOT_VEL;
+				mVelX -= BALL_VEL;
 				break;
 		}
 	}
 }
 
-void Dot::move(SDL_Rect& square, Circle& circle)
+void Ball::move(SDL_Rect& square)
 {
-	// Move the dot left or right
+	// Move the ball left or right
 	mPosX += mVelX;
 	shiftColliders();
 	
-	// If the dot collided or went too far to the left or right
-	if((mPosX - mCollider.r < 0) || (mPosX + mCollider.r > SCREEN_WIDTH) || checkCollision(mCollider, square) || checkCollision(mCollider, circle)) {
+	// If the ball collided or went too far to the left or right
+	if((mPosX - mCollider.r < 0) || (mPosX + mCollider.r > SCREEN_WIDTH) || checkCollision(mCollider, square)) {
 		// Move back
 		mPosX -= mVelX;
 		shiftColliders();
 	}
 	
-	// Move the dot up or down
+	// Move the ball up or down
 	mPosY += mVelY;
 	shiftColliders();
 	
-	// If the dot collided or went too far up or down
-	if((mPosY - mCollider.r < 0) || (mPosY + mCollider.r > SCREEN_HEIGHT) || checkCollision(mCollider, square) || checkCollision(mCollider, circle)) {
+	// If the ball collided or went too far up or down
+	if((mPosY - mCollider.r < 0) || (mPosY + mCollider.r > SCREEN_HEIGHT) || checkCollision(mCollider, square)) {
 		// Move back
 		mPosY -= mVelY;
 		shiftColliders();
 	}
 }
 
-void Dot::render() {
-	// Show the dot
-	gDotTexture.render(mPosX - mCollider.r, mPosY - mCollider.r);
+void Ball::render() {
+	// Show the ball
+	gBallTexture.render(mPosX - mCollider.r, mPosY - mCollider.r);
 }
 
-Circle& Dot::getCollider() {
+Circle& Ball::getCollider() {
 	return mCollider;
 }
 
-void Dot::shiftColliders() {
-	// Align collider to center of dot
+void Ball::shiftColliders() {
+	// Align collider to center of ball
 	mCollider.x = mPosX;
 	mCollider.y = mPosY;
 }

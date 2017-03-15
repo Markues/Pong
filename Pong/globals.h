@@ -11,6 +11,7 @@ extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
 // Scene textures
-extern LTexture gDotTexture;
+extern LTexture gBallTexture;
+extern LTexture gPaddleTexture;
 
 #endif

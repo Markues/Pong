@@ -8,4 +8,5 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 
 // Scene textures
-LTexture gDotTexture;
+LTexture gBallTexture;
+LTexture gPaddleTexture;
