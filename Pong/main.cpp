@@ -29,6 +29,7 @@ int main(int argc, char* args[]) {
 			Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 			
 			Paddle rightPaddle(SCREEN_WIDTH - Paddle::PADDLE_WIDTH, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2));
+			Paddle leftPaddle(0, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2));
 			
 			// While application is running
 			while(!quit) {
@@ -44,7 +45,7 @@ int main(int argc, char* args[]) {
 				}
 				
 				// Move the ball and check collision
-				ball.move(rightPaddle.getCollider());
+				ball.move(rightPaddle.getCollider(), leftPaddle.getCollider());
 				
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -52,6 +53,7 @@ int main(int argc, char* args[]) {
 			
 				ball.render();
 				rightPaddle.render();
+				leftPaddle.render();
 				
 				// Update screen
 				SDL_RenderPresent(gRenderer);
