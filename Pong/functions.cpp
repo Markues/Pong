@@ -68,6 +68,7 @@ bool loadMedia() {
 void close() {
 	// Free loaded images
 	gBallTexture.free();
+	gPaddleTexture.free();
 	
 	// Destroy window
 	SDL_DestroyRenderer(gRenderer);
