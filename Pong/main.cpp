@@ -28,8 +28,8 @@ int main(int argc, char* args[]) {
 			// The ball that will be moving around on the screen
 			Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 			
-			Paddle rightPaddle(SCREEN_WIDTH - Paddle::PADDLE_WIDTH, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2));
-			Paddle leftPaddle(0, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2));
+			Paddle leftPaddle(0, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2), Paddle::LEFT_PADDLE);
+			Paddle rightPaddle(SCREEN_WIDTH - Paddle::PADDLE_WIDTH, (SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2), Paddle::RIGHT_PADDLE);
 			
 			// While application is running
 			while(!quit) {
@@ -41,11 +41,15 @@ int main(int argc, char* args[]) {
 					}
 					
 					// Handle input for the ball
-					ball.handleEvent(e);
+					leftPaddle.handleEvent(e);
+					rightPaddle.handleEvent(e);
 				}
 				
+				leftPaddle.move(ball.getCollider());
+				rightPaddle.move(ball.getCollider());
+				
 				// Move the ball and check collision
-				ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
+				//ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
 				
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);

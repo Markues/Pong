@@ -57,9 +57,12 @@ public:
 	static const int PADDLE_WIDTH = 6;
 	static const int PADDLE_HEIGHT = 48;
 	
+	static const bool RIGHT_PADDLE = true;
+	static const bool LEFT_PADDLE = false;
+	
 	static const int PADDLE_VEL = 3;
 	
-	Paddle(int x, int y);
+	Paddle(int x, int y, bool isRightPaddle);
 	
 	void handleEvent(SDL_Event& e);
 	
@@ -73,6 +76,8 @@ private:
 	int mPosX, mPosY;
 	
 	int mVelX, mVelY;
+	
+	bool isRight;
 	
 	SDL_Rect mCollider;
 	

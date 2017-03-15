@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "functions.h"
 
-Paddle::Paddle(int x, int y) {
+Paddle::Paddle(int x, int y, bool isRightPaddle) {
 	// Initialize the offsets
 	mPosX = x;
 	mPosY = y;
@@ -14,34 +14,64 @@ Paddle::Paddle(int x, int y) {
 	mVelX = 0;
 	mVelY = 0;
 	
+	isRight = isRightPaddle;
+	
 	shiftColliders();
 }
 
 void Paddle::handleEvent(SDL_Event& e) {
 	// If a key was pressed
-	if(e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-		// Adjust the velocity
-		switch(e.key.keysym.sym) {
-			case SDLK_UP:
-				mVelY -= PADDLE_VEL;
-				break;
-			case SDLK_DOWN:
-				mVelY += PADDLE_VEL;
-				break;
+	if(isRight) {
+		if(e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+			// Adjust the velocity
+			switch(e.key.keysym.sym) {
+				case SDLK_UP:
+					mVelY -= PADDLE_VEL;
+					break;
+				case SDLK_DOWN:
+					mVelY += PADDLE_VEL;
+					break;
+			}
+		}
+		// If a key was released
+		else if(e.type == SDL_KEYUP && e.key.repeat == 0) {
+			// Adjust the velocity
+			switch(e.key.keysym.sym) {
+				case SDLK_UP:
+					mVelY += PADDLE_VEL;
+					break;
+				case SDLK_DOWN:
+					mVelY -= PADDLE_VEL;
+					break;
+			}
 		}
 	}
-	// If a key was released
-	else if(e.type == SDL_KEYUP && e.key.repeat == 0) {
-		// Adjust the velocity
-		switch(e.key.keysym.sym) {
-			case SDLK_UP:
-				mVelY += PADDLE_VEL;
-				break;
-			case SDLK_DOWN:
-				mVelY -= PADDLE_VEL;
-				break;
+	else {
+		if(e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+			// Adjust the velocity
+			switch(e.key.keysym.sym) {
+				case SDLK_w:
+					mVelY -= PADDLE_VEL;
+					break;
+				case SDLK_s:
+					mVelY += PADDLE_VEL;
+					break;
+			}
+		}
+		// If a key was released
+		else if(e.type == SDL_KEYUP && e.key.repeat == 0) {
+			// Adjust the velocity
+			switch(e.key.keysym.sym) {
+				case SDLK_w:
+					mVelY += PADDLE_VEL;
+					break;
+				case SDLK_s:
+					mVelY -= PADDLE_VEL;
+					break;
+			}
 		}
 	}
+	
 }
 
 void Paddle::move(Circle& circle)
