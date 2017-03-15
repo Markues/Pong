@@ -95,7 +95,7 @@ public:
 	void handleEvent(SDL_Event& e);
 	
 	// Moves the ball and checks collision
-	void move(SDL_Rect& square);
+	void move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle);
 	
 	// Shows the ball on the screen
 	void render();
