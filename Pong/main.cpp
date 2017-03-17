@@ -49,7 +49,7 @@ int main(int argc, char* args[]) {
 				rightPaddle.move();
 				
 				// Move the ball and check collision
-				//ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
+				ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
 				
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);

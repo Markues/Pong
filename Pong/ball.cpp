@@ -12,50 +12,11 @@ Ball::Ball(int x, int y) {
 	mCollider.r = BALL_WIDTH / 2;
 	
 	// Initialize the velocity
-	mVelX = 0;
-	mVelY = 0;
+	mVelX = BALL_VEL;
+	mVelY = BALL_VEL;
 	
 	// Move collider relative to the circle
 	shiftColliders();
-}
-
-void Ball::handleEvent(SDL_Event& e) {
-	// If a key was pressed
-	if(e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-		// Adjust the velocity
-		switch(e.key.keysym.sym) {
-			case SDLK_UP:
-				mVelY -= BALL_VEL;
-				break;
-			case SDLK_DOWN:
-				mVelY += BALL_VEL;
-				break;
-			case SDLK_LEFT:
-				mVelX -= BALL_VEL;
-				break;
-			case SDLK_RIGHT:
-				mVelX += BALL_VEL;
-				break;
-		}
-	}
-	// If a key was released
-	else if(e.type == SDL_KEYUP && e.key.repeat == 0) {
-		// Adjust the velocity
-		switch(e.key.keysym.sym) {
-			case SDLK_UP:
-				mVelY += BALL_VEL;
-				break;
-			case SDLK_DOWN:
-				mVelY -= BALL_VEL;
-				break;
-			case SDLK_LEFT:
-				mVelX += BALL_VEL;
-				break;
-			case SDLK_RIGHT:
-				mVelX -= BALL_VEL;
-				break;
-		}
-	}
 }
 
 void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
@@ -64,10 +25,19 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 	mPosX += mVelX;
 	shiftColliders();
 	
-	// If the ball collided or went too far to the left or right
-	if((mPosX - mCollider.r < TOP_SCREEN_HEIGHT) || (mPosX + mCollider.r > SCREEN_WIDTH) || checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
-		// Move back
+	if(checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
 		mPosX -= mVelX;
+		mVelX *= -1;
+		shiftColliders();
+	}
+	
+	// If the ball collided or went too far to the left or right
+	if((mPosX - mCollider.r < 0) || (mPosX + mCollider.r > SCREEN_WIDTH)) {
+		// Move back
+		mPosX = SCREEN_WIDTH / 2;
+		mPosY = (SCREEN_HEIGHT / 2) + (TOP_SCREEN_HEIGHT / 2);
+		mVelX *= -1;
+		mVelY *= -1;
 		shiftColliders();
 	}
 	
@@ -76,9 +46,10 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 	shiftColliders();
 	
 	// If the ball collided or went too far up or down
-	if((mPosY - mCollider.r < TOP_SCREEN_HEIGHT) || (mPosY + mCollider.r > SCREEN_HEIGHT) || checkCollision(mCollider, leftPaddle) || checkCollision(mCollider, rightPaddle)) {
+	if((mPosY - mCollider.r < TOP_SCREEN_HEIGHT) || (mPosY + mCollider.r > SCREEN_HEIGHT)) {
 		// Move back
 		mPosY -= mVelY;
+		mVelY *= -1;
 		shiftColliders();
 	}
 }

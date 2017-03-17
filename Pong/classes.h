@@ -91,13 +91,10 @@ public:
 	static const int BALL_HEIGHT = 8;
 	
 	// Maximum axis velocity of the ball
-	static const int BALL_VEL = 2;
+	static const int BALL_VEL = 3;
 	
 	// Initializes the variables
 	Ball(int x, int y);
-	
-	// Takes key presses and adjusts the ball's velocity
-	void handleEvent(SDL_Event& e);
 	
 	// Moves the ball and checks collision
 	void move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle);
