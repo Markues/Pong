@@ -12,11 +12,25 @@ Ball::Ball(int x, int y) {
 	mCollider.r = BALL_WIDTH / 2;
 	
 	// Initialize the velocity
-	mVelX = BALL_VEL;
-	mVelY = BALL_VEL;
+	mVelX = 0;
+	mVelY = 0;
 	
 	// Move collider relative to the circle
 	shiftColliders();
+	
+	direction = 1;
+}
+
+void Ball::handleEvent(SDL_Event& e) {
+	// If a key was pressed
+	if(e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+		if(e.key.keysym.sym == SDLK_SPACE) {
+			if(mVelX == 0 && mVelY == 0) {
+				mVelX = BALL_VEL * direction;
+				mVelY = BALL_VEL * direction;
+			}
+		}
+	}
 }
 
 void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
@@ -33,11 +47,17 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 	
 	// If the ball collided or went too far to the left or right
 	if((mPosX - mCollider.r < 0) || (mPosX + mCollider.r > SCREEN_WIDTH)) {
-		// Move back
+		// Reset the playfield with the ball going the opposite way
 		mPosX = SCREEN_WIDTH / 2;
 		mPosY = (SCREEN_HEIGHT / 2) + (TOP_SCREEN_HEIGHT / 2);
-		mVelX *= -1;
-		mVelY *= -1;
+		if(mVelX > 0) {
+			direction = -1;
+		}
+		else {
+			direction = 1;
+		}
+		mVelX = 0;
+		mVelY = 0;
 		shiftColliders();
 	}
 	

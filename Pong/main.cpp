@@ -43,6 +43,7 @@ int main(int argc, char* args[]) {
 					// Handle input for the ball
 					leftPaddle.handleEvent(e);
 					rightPaddle.handleEvent(e);
+					ball.handleEvent(e);
 				}
 				
 				leftPaddle.move();

@@ -95,6 +95,8 @@ public:
 	
 	// Initializes the variables
 	Ball(int x, int y);
+
+	void handleEvent(SDL_Event& e);
 	
 	// Moves the ball and checks collision
 	void move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle);
@@ -111,6 +113,8 @@ private:
 	
 	// The velocity of the ball
 	int mVelX, mVelY;
+	
+	int direction;
 	
 	// Ball's collision circle
 	Circle mCollider;
