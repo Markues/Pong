@@ -66,7 +66,7 @@ public:
 	
 	void handleEvent(SDL_Event& e);
 	
-	void move(Circle& circle);
+	void move();
 	
 	void render();
 	

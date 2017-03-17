@@ -74,14 +74,14 @@ void Paddle::handleEvent(SDL_Event& e) {
 	
 }
 
-void Paddle::move(Circle& circle)
+void Paddle::move()
 {
 	// Move the paddle up or down
 	mPosY += mVelY;
 	shiftColliders();
 	
 	// If the paddle collided or went too far up or down
-	if((mPosY < TOP_SCREEN_HEIGHT) || (mPosY + mCollider.h > SCREEN_HEIGHT) || checkCollision(circle, mCollider)) {
+	if((mPosY < TOP_SCREEN_HEIGHT) || (mPosY + mCollider.h > SCREEN_HEIGHT)) {
 		// Move back
 		mPosY -= mVelY;
 		shiftColliders();

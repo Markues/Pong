@@ -45,8 +45,8 @@ int main(int argc, char* args[]) {
 					rightPaddle.handleEvent(e);
 				}
 				
-				leftPaddle.move(ball.getCollider());
-				rightPaddle.move(ball.getCollider());
+				leftPaddle.move();
+				rightPaddle.move();
 				
 				// Move the ball and check collision
 				//ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
