@@ -31,6 +31,9 @@ int main(int argc, char* args[]) {
 			Paddle leftPaddle(0, (SCREEN_HEIGHT / 2) + (TOP_SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2), Paddle::LEFT_PADDLE);
 			Paddle rightPaddle(SCREEN_WIDTH - Paddle::PADDLE_WIDTH, (SCREEN_HEIGHT / 2) + (TOP_SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2), Paddle::RIGHT_PADDLE);
 			
+			Score leftScore((SCREEN_WIDTH / 4) - (SCORE_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (SCORE_HEIGHT / 2), 0);
+			Score rightScore(((SCREEN_WIDTH / 4) * 3) - (SCORE_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (SCORE_HEIGHT / 2), 0);
+			
 			// While application is running
 			while(!quit) {
 				// Handle events on queue
@@ -61,6 +64,8 @@ int main(int argc, char* args[]) {
 				SDL_RenderDrawLine(gRenderer, SCREEN_WIDTH / 2, TOP_SCREEN_HEIGHT, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
 				SDL_RenderDrawLine(gRenderer, 0, TOP_SCREEN_HEIGHT, SCREEN_WIDTH, TOP_SCREEN_HEIGHT);
 				
+				leftScore.render();
+				rightScore.render();
 				ball.render();
 				rightPaddle.render();
 				leftPaddle.render();

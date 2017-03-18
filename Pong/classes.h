@@ -123,4 +123,24 @@ private:
 	void shiftColliders();
 };
 
+class Score {
+public:
+	Score(int x, int y, int scoreVal);
+	
+	void render();
+	
+	int getVal();
+	
+	void setVal(int val);
+	
+	//Get the collision box
+	SDL_Rect getBox();
+	
+private:
+	//The attributes of the tile
+	SDL_Rect mBox;
+	
+	int mVal;
+};
+
 #endif

@@ -13,5 +13,8 @@ extern SDL_Renderer* gRenderer;
 // Scene textures
 extern LTexture gBallTexture;
 extern LTexture gPaddleTexture;
+extern LTexture gScoreTexture;
+
+extern SDL_Rect gScoreClips[TOTAL_SCORE_SPRITES];
 
 #endif

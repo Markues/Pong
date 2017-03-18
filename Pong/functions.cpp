@@ -61,6 +61,17 @@ bool loadMedia() {
 		printf("Failed to load paddle texture!\n");
 		success = false;
 	}
+	if(!gScoreTexture.loadFromFile("NumberSheet.png")) {
+		printf("Failed to load score texture!\n");
+		success = false;
+	}
+	
+	for(int i = 0; i < TOTAL_SCORE_SPRITES; i++) {
+		gScoreClips[i].x = i * SCORE_WIDTH;
+		gScoreClips[i].y = 0;
+		gScoreClips[i].w = SCORE_WIDTH;
+		gScoreClips[i].h = SCORE_HEIGHT;
+	}
 	
 	return success;
 }
@@ -69,6 +80,7 @@ void close() {
 	// Free loaded images
 	gBallTexture.free();
 	gPaddleTexture.free();
+	gScoreTexture.free();
 	
 	// Destroy window
 	SDL_DestroyRenderer(gRenderer);
