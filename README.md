@@ -1,5 +1,5 @@
 Classic Pong in C++ with SDL2
-============================
+=============================
 
 Classic Pong
 
@@ -16,6 +16,13 @@ Make sure you've linked SDL2 and SDL2_image to your project
 Make sure you're set to use /workspace so the resource files can be found
 
 Compile and run!
+
+## Controls and Game Info
+* First Player to a score of 9 wins!
+* Left Player uses W and S keys
+* Right Player uses Up and Down arrow keys
+* Hit space to start the ball into motion
+* Optimized for 60Hz screens
 
 ## Credits
 Some of this code is repurposed from Lazy Foo's tutorials.
