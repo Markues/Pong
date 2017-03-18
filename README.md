@@ -15,7 +15,7 @@ Make sure the following are installed:
 3. [SDL2_mixer](https://www.libsdl.org/projects/SDL_mixer/)
 
 Setup a new project with your favorite IDE and copy over the files
-Make sure you've linked SDL2 and SDL2_image to your project
+Make sure you've linked SDL2, SDL2_image, and SDL2_mixer to your project
 Make sure you're set to use /workspace so the resource files can be found
 
 Compile and run!
