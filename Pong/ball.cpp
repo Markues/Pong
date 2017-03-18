@@ -33,8 +33,10 @@ void Ball::handleEvent(SDL_Event& e) {
 	}
 }
 
-void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
+int Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 {
+	int returnVal = 0;
+	
 	// Move the ball left or right
 	mPosX += mVelX;
 	shiftColliders();
@@ -56,6 +58,8 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 		else {
 			direction = 1;
 		}
+		returnVal = direction;
+		
 		mVelX = 0;
 		mVelY = 0;
 		shiftColliders();
@@ -72,6 +76,8 @@ void Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 		mVelY *= -1;
 		shiftColliders();
 	}
+	
+	return returnVal;
 }
 
 void Ball::render() {

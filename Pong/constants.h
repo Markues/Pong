@@ -12,4 +12,9 @@ const int SCORE_HEIGHT = 26;
 
 const int TOTAL_SCORE_SPRITES = 10;
 
+const int WINNER_WIDTH = 90;
+const int WINNER_HEIGHT = 26;
+const int STARTING_SCORE = 0;
+const int WINNING_SCORE = 9;
+
 #endif

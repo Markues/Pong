@@ -60,7 +60,7 @@ public:
 	static const bool RIGHT_PADDLE = true;
 	static const bool LEFT_PADDLE = false;
 	
-	static const int PADDLE_VEL = 3;
+	static const int PADDLE_VEL = 5;
 	
 	Paddle(int x, int y, bool isRightPaddle);
 	
@@ -91,7 +91,7 @@ public:
 	static const int BALL_HEIGHT = 8;
 	
 	// Maximum axis velocity of the ball
-	static const int BALL_VEL = 3;
+	static const int BALL_VEL = 4;
 	
 	// Initializes the variables
 	Ball(int x, int y);
@@ -99,7 +99,7 @@ public:
 	void handleEvent(SDL_Event& e);
 	
 	// Moves the ball and checks collision
-	void move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle);
+	int move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle);
 	
 	// Shows the ball on the screen
 	void render();

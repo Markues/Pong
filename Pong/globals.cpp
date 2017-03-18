@@ -11,5 +11,6 @@ SDL_Renderer* gRenderer = NULL;
 LTexture gBallTexture;
 LTexture gPaddleTexture;
 LTexture gScoreTexture;
+LTexture gWinnerTexture;
 
 SDL_Rect gScoreClips[TOTAL_SCORE_SPRITES];

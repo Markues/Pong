@@ -31,11 +31,21 @@ int main(int argc, char* args[]) {
 			Paddle leftPaddle(0, (SCREEN_HEIGHT / 2) + (TOP_SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2), Paddle::LEFT_PADDLE);
 			Paddle rightPaddle(SCREEN_WIDTH - Paddle::PADDLE_WIDTH, (SCREEN_HEIGHT / 2) + (TOP_SCREEN_HEIGHT / 2) - (Paddle::PADDLE_HEIGHT / 2), Paddle::RIGHT_PADDLE);
 			
-			Score leftScore((SCREEN_WIDTH / 4) - (SCORE_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (SCORE_HEIGHT / 2), 0);
-			Score rightScore(((SCREEN_WIDTH / 4) * 3) - (SCORE_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (SCORE_HEIGHT / 2), 0);
+			Score leftScore((SCREEN_WIDTH / 4) - (SCORE_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (SCORE_HEIGHT / 2), STARTING_SCORE);
+			Score rightScore(((SCREEN_WIDTH / 4) * 3) - (SCORE_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (SCORE_HEIGHT / 2), STARTING_SCORE);
+			
+			bool leftWinner = false;
+			bool rightWinner = false;
 			
 			// While application is running
 			while(!quit) {
+				if(leftScore.getVal() == WINNING_SCORE) {
+					leftWinner = true;
+				}
+				else if(rightScore.getVal() == WINNING_SCORE) {
+					rightWinner = true;
+				}
+				
 				// Handle events on queue
 				while(SDL_PollEvent(&e) != 0) {
 					// User requests quit
@@ -43,17 +53,31 @@ int main(int argc, char* args[]) {
 						quit = true;
 					}
 					
-					// Handle input for the ball
-					leftPaddle.handleEvent(e);
-					rightPaddle.handleEvent(e);
-					ball.handleEvent(e);
+					if(!leftWinner && !rightWinner) {
+						// Handle input for the ball
+						leftPaddle.handleEvent(e);
+						rightPaddle.handleEvent(e);
+						ball.handleEvent(e);
+					}
 				}
 				
-				leftPaddle.move();
-				rightPaddle.move();
-				
-				// Move the ball and check collision
-				ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
+				if(!leftWinner && !rightWinner) {
+					leftPaddle.move();
+					rightPaddle.move();
+					
+					// Move the ball and check collision
+					int scoreCheck = ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
+					if(scoreCheck != 0) {
+						switch (scoreCheck) {
+							case -1:
+								leftScore.setVal(leftScore.getVal() + 1);
+								break;
+							case 1:
+								rightScore.setVal(rightScore.getVal() + 1);
+								break;
+						}
+					}
+				}
 				
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -69,6 +93,12 @@ int main(int argc, char* args[]) {
 				ball.render();
 				rightPaddle.render();
 				leftPaddle.render();
+				if(leftWinner) {
+					gWinnerTexture.render((SCREEN_WIDTH / 2) - ((WINNER_WIDTH * 3) / 2), (TOP_SCREEN_HEIGHT / 2) - (WINNER_HEIGHT / 2));
+				}
+				else if(rightWinner) {
+					gWinnerTexture.render((SCREEN_WIDTH / 2) + (WINNER_WIDTH / 2), (TOP_SCREEN_HEIGHT / 2) - (WINNER_HEIGHT / 2));
+				}
 				
 				// Update screen
 				SDL_RenderPresent(gRenderer);

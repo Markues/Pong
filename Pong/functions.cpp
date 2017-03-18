@@ -65,6 +65,10 @@ bool loadMedia() {
 		printf("Failed to load score texture!\n");
 		success = false;
 	}
+	if(!gWinnerTexture.loadFromFile("WinnerText.png")) {
+		printf("Failed to winner text texture!\n");
+		success = false;
+	}
 	
 	for(int i = 0; i < TOTAL_SCORE_SPRITES; i++) {
 		gScoreClips[i].x = i * SCORE_WIDTH;
@@ -81,6 +85,7 @@ void close() {
 	gBallTexture.free();
 	gPaddleTexture.free();
 	gScoreTexture.free();
+	gWinnerTexture.free();
 	
 	// Destroy window
 	SDL_DestroyRenderer(gRenderer);
