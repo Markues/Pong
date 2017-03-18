@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include "constants.h"
 #include "globals.h"
@@ -42,6 +41,12 @@ bool init() {
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
+				
+				// Initialize SDL_mixer
+				if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+					printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -70,6 +75,18 @@ bool loadMedia() {
 		success = false;
 	}
 	
+	// Load sound effects
+	gBoop = Mix_LoadWAV("Boop.wav");
+	if(gBoop == NULL) {
+		printf("Failed to load Boop sound effect! SDL_mixer Error: %s\n", Mix_GetError());
+		success = false;
+	}
+	gScore = Mix_LoadWAV("Score.wav");
+	if(gScore == NULL) {
+		printf("Failed to load Score sound effect! SDL_mixer Error: %s\n", Mix_GetError());
+		success = false;
+	}
+	
 	for(int i = 0; i < TOTAL_SCORE_SPRITES; i++) {
 		gScoreClips[i].x = i * SCORE_WIDTH;
 		gScoreClips[i].y = 0;
@@ -87,6 +104,11 @@ void close() {
 	gScoreTexture.free();
 	gWinnerTexture.free();
 	
+	Mix_FreeChunk(gBoop);
+	Mix_FreeChunk(gScore);
+	gBoop = NULL;
+	gScore = NULL;
+	
 	// Destroy window
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
@@ -94,6 +116,7 @@ void close() {
 	gRenderer = NULL;
 	
 	// Quit SDL subsystems
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

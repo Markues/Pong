@@ -1,3 +1,4 @@
+#include <SDL2_mixer/SDL_mixer.h>
 #include "classes.h"
 #include "globals.h"
 #include "functions.h"
@@ -45,6 +46,7 @@ int Ball::move(SDL_Rect& leftPaddle, SDL_Rect& rightPaddle)
 		mPosX -= mVelX;
 		mVelX *= -1;
 		shiftColliders();
+		Mix_PlayChannel(-1, gBoop, 0);
 	}
 	
 	// If the ball collided or went too far to the left or right

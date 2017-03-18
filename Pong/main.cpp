@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
+#include <SDL2_mixer/SDL_mixer.h>
 #include <string>
 #include "constants.h"
 #include "classes.h"
@@ -68,6 +69,7 @@ int main(int argc, char* args[]) {
 					// Move the ball and check collision
 					int scoreCheck = ball.move(leftPaddle.getCollider(), rightPaddle.getCollider());
 					if(scoreCheck != 0) {
+						Mix_PlayChannel(-1, gScore, 0);
 						switch (scoreCheck) {
 							case -1:
 								leftScore.setVal(leftScore.getVal() + 1);

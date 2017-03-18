@@ -1,3 +1,4 @@
+#include <SDL2_mixer/SDL_mixer.h>
 #include "classes.h"
 #include "constants.h"
 
@@ -12,5 +13,8 @@ LTexture gBallTexture;
 LTexture gPaddleTexture;
 LTexture gScoreTexture;
 LTexture gWinnerTexture;
+
+Mix_Chunk *gBoop = NULL;
+Mix_Chunk *gScore = NULL;
 
 SDL_Rect gScoreClips[TOTAL_SCORE_SPRITES];
